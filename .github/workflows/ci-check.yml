@@ -1,0 +1,99 @@
+name: CI-check
+run-name: CI by @${{ github.actor }}
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  setup:
+    name: CI 작업 세팅
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: node 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.15.1'
+          npm: '10.8.1'
+
+      - name: 의존성 캐싱
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-nodekey-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nodekey-
+      - if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
+        run: npm install
+
+  lint:
+    name: lint 체크
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: node 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.15.1'
+          npm: '10.8.1'
+
+      - name: 의존성 캐싱
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-nodekey-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nodekey-
+
+      - name: ESLint 실행
+        run: npm run lint
+
+  type-check:
+    name: 타입 체킹
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: node 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.15.1'
+          npm: '10.8.1'
+
+      - name: 의존성 캐싱
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-nodekey-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nodekey-
+
+      - name: 타입 체크
+        run: npm run type-check

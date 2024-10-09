@@ -1,0 +1,39 @@
+name: cache-modules
+run-name: node_modules update
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  update-cache:
+    timeout-minutes: 10
+    name: update-cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: node 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.15.1'
+          npm: '10.8.1'
+
+      - name: 의존성 캐싱
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+
+          key: ${{ runner.os }}-nodekey-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nodekey-
+
+      - name: 의존성 설치
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm install

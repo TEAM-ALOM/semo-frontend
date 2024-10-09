@@ -10,13 +10,18 @@
     "lint": "eslint .",
     "lint-staged": "lint-staged",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc -p tsconfig.app.json --noEmit"
   },
   "prepare": "husky install",
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "prettier --write"
     ]
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.8",

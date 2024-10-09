@@ -5,5 +5,5 @@ function App() {
     </div>
   );
 }
-
+const a: number = '@';
 export default App;
