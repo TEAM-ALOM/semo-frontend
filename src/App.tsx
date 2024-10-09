@@ -5,5 +5,7 @@ function App() {
     </div>
   );
 }
+
 const a: number = '@';
+interface props {}
 export default App;
