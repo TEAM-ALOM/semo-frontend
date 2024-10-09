@@ -1,11 +1,11 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import React from 'react';
+import { store } from '@store/store';
 import App from './App.tsx';
-import {BrowserRouter} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import {store} from '@store/store.ts';
-import {PersistGate} from 'redux-persist/integration/react';
-import {persistStore} from 'redux-persist';
 
 export const persist = persistStore(store);
 

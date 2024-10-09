@@ -1,10 +1,8 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {persistReducer} from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-
-const reducers = combineReducers({
-});
+const reducers = combineReducers({});
 
 const persistConfig = {
   key: 'root', // localStorage key
@@ -18,7 +16,7 @@ const persistStore = persistReducer(persistConfig, reducers);
 export const store = configureStore({
   reducer: persistStore,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({serializableCheck: false}),
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
