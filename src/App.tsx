@@ -6,6 +6,4 @@ function App() {
   );
 }
 
-const a: number = '@';
-interface props {}
 export default App;
