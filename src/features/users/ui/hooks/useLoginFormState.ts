@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useInputState } from '@/utils/react/hooks/useInputState';
+import { useInputState } from '@semo-client/utils/react/hooks/useInputState';
 import { validatePasswordInput } from '../../services/validatePasswordInput';
 import { validateUserIdInput } from '../../services/validateUserIdInput';
 

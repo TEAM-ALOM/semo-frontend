@@ -1,4 +1,4 @@
-import { type ValueOf } from '@/utils/types/utilTypes';
+import { ValueOf } from '@semo-utils/types/utilTypes';
 
 export type CommonHttpErrorScheme = {
   field?: string;

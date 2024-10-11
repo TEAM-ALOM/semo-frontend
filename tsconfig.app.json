@@ -23,6 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
+      "@semo-client/*": ["src/*"],
       "@semo-ui/*": ["src/ui/components/*"],
       "@semo-utils/*": ["src/utils/*"]
     },

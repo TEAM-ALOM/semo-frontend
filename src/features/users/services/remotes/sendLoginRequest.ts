@@ -1,4 +1,4 @@
-import { httpClient } from '@/configs/http-client';
+import { httpClient } from '@semo-client/configs/http-client';
 import { User } from '../../models/user';
 import { UserLoginDto } from '../../models/userLoginDto';
 
