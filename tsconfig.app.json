@@ -21,9 +21,10 @@
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
+    "baseUrl": "./src/.",
     "paths": {
-      "@/*": ["./*"]
+      "@semo-ui/*": ["ui/components/*"],
+      "@semo-utils/*": ["utils/*"]
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
