@@ -21,12 +21,14 @@
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@semo-client/*": ["src/*"],
+      "@semo-ui/*": ["src/ui/components/*"],
+      "@semo-utils/*": ["src/utils/*"]
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"]
+  "include": ["src", ".storybook"]
 }

@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   SpecificHttpException,
   UnauthorizedException,
-} from '@/configs/http-client/httpErrors';
+} from '@semo-client/configs/http-client/httpErrors';
 
 export const QueryProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useRef(

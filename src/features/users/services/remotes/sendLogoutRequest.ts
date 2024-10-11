@@ -1,4 +1,4 @@
-import { httpClient } from '@/configs/http-client';
+import { httpClient } from '@semo-client/configs/http-client';
 
 export const API_LOGOUT = 'v1/auth/logout';
 

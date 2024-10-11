@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import { miniReset } from './miniReset';
 
-export const GlobalStyles = createGlobalStyle`
+export const SemoGlobalStyles = createGlobalStyle`
 
   ${miniReset}
 
