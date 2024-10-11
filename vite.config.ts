@@ -1,44 +1,13 @@
-import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [react(), svgr(), tsconfigPaths()],
   server: {
     port: 3000,
   },
-  resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: resolve(__dirname, './src'),
-      },
-      {
-        find: '@components',
-        replacement: resolve(__dirname, './src/components'),
-      },
-      {
-        find: '@pages',
-        replacement: resolve(__dirname, './src/pages'),
-      },
-      {
-        find: '@assets',
-        replacement: resolve(__dirname, './src/assets'),
-      },
-      {
-        find: '@store',
-        replacement: resolve(__dirname, './src/store'),
-      },
-      {
-        find: '@plugins',
-        replacement: resolve(__dirname, './src/plugins'),
-      },
-      {
-        find: '@apis',
-        replacement: resolve(__dirname, './src/apis'),
-      },
-    ],
-  },
+  resolve: {},
 });

@@ -21,18 +21,14 @@
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@assets/*": ["assets/*"],
-      "@store/*": ["store/*"],
-      "@plugins/*": ["plugins/*"],
-      "@apis/*": ["apis/*"]
+      "@semo-client/*": ["src/*"],
+      "@semo-ui/*": ["src/ui/components/*"],
+      "@semo-utils/*": ["src/utils/*"]
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "src/custom.d.ts"]
+  "include": ["src", ".storybook"]
 }
