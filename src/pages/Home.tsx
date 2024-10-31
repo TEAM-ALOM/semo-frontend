@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
+import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 
 export const Home = () => {
@@ -7,8 +9,8 @@ export const Home = () => {
     <AppContainer>
       <BackgroundImageView />
       <HeaderView />
+      <Clock />
 
-      {/* <Clock /> */}
       {/* <Search /> */}
       {/* <Notice /> */}
       {/* <Bookmark /> */}
