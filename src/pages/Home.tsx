@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import { Header } from '@semo-client/features/header/ui/components/Header';
+import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
+import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 
 export const Home = () => {
   return (
     <AppContainer>
-      <FullScreenBackground>
-        <Overlay />
-      </FullScreenBackground>
-
-      <Header />
+      <BackgroundImageView />
+      <HeaderView />
 
       {/* <Clock /> */}
       {/* <Search /> */}
@@ -19,28 +17,6 @@ export const Home = () => {
     </AppContainer>
   );
 };
-
-const FullScreenBackground = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-image: url('/images/image.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`;
-
-const Overlay = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.35);
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
 
 const AppContainer = styled.main`
   position: relative;
