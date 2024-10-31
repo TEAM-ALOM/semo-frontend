@@ -5,10 +5,6 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import {
-  SpecificHttpException,
-  UnauthorizedException,
-} from '@semo-client/configs/http-client/httpErrors';
 
 export const QueryProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useRef(
@@ -24,14 +20,7 @@ export const QueryProvider = ({ children }: { children: ReactNode }) => {
         },
       },
       queryCache: new QueryCache({
-        onError: (error: unknown) => {
-          if (error instanceof UnauthorizedException) {
-            return;
-          }
-          if (error instanceof SpecificHttpException) {
-            return;
-          }
-        },
+        onError: () => {},
       }),
     }),
   );

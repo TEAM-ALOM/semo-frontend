@@ -1,8 +1,17 @@
+import { RouterProvider } from 'react-router-dom';
+import { QueryProvider } from './configs/react/providers/QueryProvider';
+import { routes } from './pages/routes';
+import { SemoGlobalStyles } from './ui/styles/SemoGlobalStyles';
+import { SemoThemeProvider } from './ui/styles/SemoThemeProvider';
+
 function App() {
   return (
-    <div className='App'>
-      <h1>Hello World</h1>
-    </div>
+    <QueryProvider>
+      <RouterProvider router={routes} />
+      <SemoThemeProvider>
+        <SemoGlobalStyles />
+      </SemoThemeProvider>
+    </QueryProvider>
   );
 }
 
