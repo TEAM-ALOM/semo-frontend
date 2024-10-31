@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Header = () => {
+export const HeaderView = () => {
   return (
     <StyledHeader>
       <Container>
@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 64px;
   padding: 16px 150px;
-  position: fixed;
+  position: sticky;
   display: flex;
   align-items: center;
   background-color: #1c1c1eb2;
