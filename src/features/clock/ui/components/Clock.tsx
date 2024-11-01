@@ -22,19 +22,19 @@ const ClockContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  margin: 124px auto 88px;
+  margin: 88px auto 56px;
 `;
 
 const DateDisplay = styled.div`
   font-size: 24px;
   color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  font-weight: 400;
 `;
 
 const TimeDisplay = styled.div`
   width: 700px;
   text-align: center;
-  font-size: 180px;
+  font-size: 160px;
   font-weight: 100;
   line-height: 214.8px;
   color: #ffffff;
