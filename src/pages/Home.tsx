@@ -6,7 +6,6 @@ import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
-import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
 import professorsData from '@semo-utils/data/professors.json';

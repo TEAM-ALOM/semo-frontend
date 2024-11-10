@@ -1,5 +1,4 @@
-// src/components/SearchInput.tsx
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults.tsx';
 import SearchIcon from '@semo-client/ui/assets/icons/Icon';
@@ -133,6 +132,7 @@ const SearchIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease-in-out;
 `;
 
 const StyledInput = styled.input<{ isExpanded: boolean }>`
