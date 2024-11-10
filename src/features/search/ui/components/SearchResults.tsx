@@ -1,4 +1,3 @@
-// src/components/SearchResults.tsx
 import React from 'react';
 import styled from 'styled-components';
 import searchPalette from '@semo-client/ui/styles/pallete/searchPalette.ts';

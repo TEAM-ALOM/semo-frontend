@@ -1,4 +1,3 @@
-// src/utils/hangulUtils.ts
 import { disassembleCompleteCharacter } from 'es-hangul';
 
 /**
