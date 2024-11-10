@@ -1,19 +1,72 @@
+import debounce from 'lodash/debounce';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
+import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
+import professorsData from '@semo-utils/data/professors.json';
+import { getInitials } from '@semo-utils/search/hangulUtils';
+import { Professor } from '@semo-utils/types/Professor';
+import { Controls } from '@storybook/blocks';
 
 /**
  * TODO 각 요소 컴포넌트 에는 추가 스타일(여백,마진) 들어있지 않은 순수 요소 컴포넌트
  * 각 요소의 마진 요소들은 (레이아웃 잡기) 여기서 container 컴포넌트에서 잡아준다.
  */
 export const Home = () => {
-  // load user login status
+  const [query, setQuery] = useState<string>('');
+  // 검색 결과 반영
+  const [results, setResults] = useState<Professor[]>([]);
 
+  /**
+   * 검색어에 따라 교수님 데이터를 필터링합니다.
+   * 전체 이름, 초성, 일부 이름을 포함하는지 확인합니다.
+   * @param searchQuery 사용자 입력 검색어
+   */
+  const fetchData = (searchQuery: string) => {
+    if (searchQuery.trim() === '') {
+      setResults([]);
+      return;
+    }
+
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const queryInitials = getInitials(normalizedQuery);
+
+    const filtered = professorsData.filter(professor => {
+      const name = professor.name.toLowerCase();
+      const initials = getInitials(professor.name.toLowerCase());
+
+      return (
+        name.includes(normalizedQuery) || // 전체 이름 또는 일부 이름 포함
+        initials.includes(normalizedQuery) // 초성 포함
+      );
+    });
+
+    setResults(filtered);
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((searchTerm: string) => {
+      fetchData(searchTerm);
+    }, 300),
+    [],
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setQuery(input);
+    debouncedSearch(input);
+  };
+
+  const handleSubmit = () => {
+    debouncedSearch.cancel();
+    fetchData(query);
+  };
   return (
     <AppContainer>
       <BackgroundImageView />
@@ -29,7 +82,14 @@ export const Home = () => {
 
       {/* Search */}
       <SearchInputContainer>
-        <SearchInput />
+        <SearchInput
+          query={query}
+          setQuery={setQuery}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          results={results}
+        />
+        <DummyInputBox />
         <TrendingKeywords />
       </SearchInputContainer>
 
@@ -99,4 +159,9 @@ const AppContainer = styled.main`
   @media screen and (max-width: 786px) {
     display: none;
   }
+`;
+
+const DummyInputBox = styled.div`
+  width: 100%;
+  height: 90px;
 `;
