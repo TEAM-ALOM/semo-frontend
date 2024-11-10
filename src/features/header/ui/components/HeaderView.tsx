@@ -1,15 +1,19 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
+import Logo from '@semo-client/ui/assets/logo.svg?react';
 
-export const HeaderView = () => {
+interface HeaderViewProps {
+  userProfileView: ReactNode;
+}
+
+export const HeaderView = ({ userProfileView }: HeaderViewProps) => {
   return (
     <StyledHeader>
       <Container>
-        <div>세모 로고</div>
-        <FlexBox>
-          <Input />
-          <div>로그인</div>
-          <div>회원가입</div>
-        </FlexBox>
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
+        <FlexBox>{userProfileView}</FlexBox>
       </Container>
     </StyledHeader>
   );
@@ -25,14 +29,10 @@ const StyledHeader = styled.header`
   background-color: #1c1c1eb2;
 `;
 
-const Input = styled.input`
-  border-radius: 8px;
-  width: 250px;
-  height: 32px;
-  outline: none;
-  border: none;
-  background-color: #3c3d44;
+const LogoWrapper = styled.div`
+  margin-top: 8px;
 `;
+
 const Container = styled.div`
   display: flex;
   flex-grow: 1;

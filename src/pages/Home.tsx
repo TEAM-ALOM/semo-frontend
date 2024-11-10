@@ -5,16 +5,26 @@ import { HeaderView } from '@semo-client/features/header/ui/components/HeaderVie
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
+import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
 
 /**
  * TODO 각 요소 컴포넌트 에는 추가 스타일(여백,마진) 들어있지 않은 순수 요소 컴포넌트
  * 각 요소의 마진 요소들은 (레이아웃 잡기) 여기서 container 컴포넌트에서 잡아준다.
  */
 export const Home = () => {
+  // load user login status
+
   return (
     <AppContainer>
       <BackgroundImageView />
-      <HeaderView />
+      <HeaderView
+        userProfileView={
+          // view setting by user login status
+          // <UserProfileView />
+          <LoginButtonView />
+        }
+      />
+
       <Clock />
 
       {/* Search */}
