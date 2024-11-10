@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Professor } from '@semo-client/features/search/models/Professor.ts';
 import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults.tsx';
 import SearchIcon from '@semo-client/ui/assets/icons/Icon';
 import searchPalette from '@semo-client/ui/styles/pallete/searchPalette.ts';
-import { Professor } from '@semo-utils/types/Professor.ts';
 
 interface SearchInputProps {
   query: string;

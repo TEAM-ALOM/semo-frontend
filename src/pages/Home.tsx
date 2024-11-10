@@ -5,12 +5,12 @@ import { BackgroundImageView } from '@semo-client/features/background-image/ui/c
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
+import professorsData from '@semo-client/features/search/data/professors.json';
+import { Professor } from '@semo-client/features/search/models/Professor.ts';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
-import professorsData from '@semo-utils/data/professors.json';
 import { getInitials } from '@semo-utils/search/hangulUtils';
-import { Professor } from '@semo-utils/types/Professor';
 import { Controls } from '@storybook/blocks';
 
 /**

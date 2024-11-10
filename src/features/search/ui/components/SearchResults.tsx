@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Professor } from '@semo-client/features/search/models/Professor.ts';
 import searchPalette from '@semo-client/ui/styles/pallete/searchPalette.ts';
-import { Professor } from '@semo-utils/types/Professor.ts';
 
 interface SearchResultsProps {
   value: string;
@@ -17,7 +17,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       {results.map((professor, index) => (
         <ResultItem key={index}>
           <Profile>
-            // TODO: 이미지 추가 필요
+            {/*// TODO: 이미지 추가 필요*/}
             {/*<ProfileImage src={professor.image} alt={professor.name} />*/}
             <ProfileImage />
             <ProfileInfo>
