@@ -30,5 +30,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", ".storybook"]
+  "include": [
+    "src",
+    ".storybook",
+    "src/svg.d.ts",
+    "src/features/users/ui/components/.tsx"
+  ]
 }
