@@ -17,7 +17,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       {results.map((professor, index) => (
         <ResultItem key={index}>
           <Profile>
-            <ProfileImage src={professor.image} alt={professor.name} />
+            // TODO: 이미지 추가 필요
+            {/*<ProfileImage src={professor.image} alt={professor.name} />*/}
+            <ProfileImage />
             <ProfileInfo>
               <Name>{professor.name} 교수님</Name>
               <Department>{professor.department}</Department>
@@ -72,7 +74,7 @@ const ProfileInfo = styled.div`
   margin-left: 10px;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled.span`
   background: #fff;
   border-radius: 50%;
   width: 36px;
