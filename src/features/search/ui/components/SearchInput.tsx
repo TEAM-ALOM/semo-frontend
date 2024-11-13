@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Professor } from '@semo-client/features/search/models/Professor.ts';
-import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults.tsx';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Professor } from '@semo-client/features/search/models/Professor';
+import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults';
+import { useSearchOverlayController } from '@semo-client/features/search/ui/hooks/useSearchOverlayController';
 import SearchIcon from '@semo-client/ui/assets/icons/Icon';
-import searchPalette from '@semo-client/ui/styles/pallete/searchPalette.ts';
 
 interface SearchInputProps {
   query: string;
@@ -20,51 +20,21 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onSubmit,
   results,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-
-  const handleExpand = () => {
-    setIsExpanded(true);
-    setIsOverlayVisible(true);
-  };
-
-  const handleCollapse = () => {
-    setIsExpanded(false);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onSubmit();
-      handleCollapse();
-    }
-  };
-
-  useEffect(() => {
-    if (!isExpanded) {
-      // 오버레이를 애니메이션 후에 숨김
-      const timeoutId = setTimeout(() => {
-        setIsOverlayVisible(false);
-      }, 300); // 트랜지션 시간과 동일하게 설정
-
-      // 검색창 초기화
-      setQuery('');
-
-      return () => clearTimeout(timeoutId);
-    } else {
-      setIsOverlayVisible(true);
-    }
-  }, [isExpanded]);
+  const {
+    isExpanded,
+    isOverlayVisible,
+    handleExpand,
+    handleCollapse,
+    handleKeyPress,
+    handleOverlayAnimationEnd,
+  } = useSearchOverlayController({ onSubmit, setQuery });
 
   return (
     <>
       <SearchInputWrapper isExpanded={isExpanded}>
         <InputContainer isExpanded={isExpanded}>
           <SearchIconWrapper>
-            <SearchIcon
-              width={24}
-              height={24}
-              fill={searchPalette.blackGray[50]}
-            />
+            <SearchIcon width={24} height={24} />
           </SearchIconWrapper>
           <StyledInput
             type='text'
@@ -78,19 +48,43 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             }}
             isExpanded={isExpanded}
             autoFocus={isExpanded}
+            aria-label='검색 입력창'
           />
         </InputContainer>
-        {results.length != 0 && (
+        {isExpanded && results.length > 0 && (
           <SearchResults value={query} results={results} />
         )}
       </SearchInputWrapper>
 
       {isOverlayVisible && (
-        <Overlay isExpanded={isExpanded} onClick={handleCollapse} />
+        <Overlay
+          isExpanded={isExpanded}
+          onClick={handleCollapse}
+          onAnimationEnd={handleOverlayAnimationEnd}
+          aria-live='polite'
+        />
       )}
     </>
   );
 };
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const fadeOut = keyframes`
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+`;
 
 const SearchInputWrapper = styled.div<{ isExpanded: boolean }>`
   position: absolute;
@@ -107,11 +101,12 @@ const InputContainer = styled.div<{ isExpanded: boolean }>`
   align-items: center;
   width: 100%;
   height: 54px;
-  border-radius: ${({ isExpanded }) =>
-    isExpanded ? '8px 8px 0 0' : '8px'}; /* 조건부 border-radius */
-  background-color: ${({ isExpanded }) =>
-    isExpanded ? searchPalette.blackGray[90] : searchPalette.blackGray[70]};
-  border: 1px solid ${searchPalette.whiteGray[30]};
+  border-radius: ${({ isExpanded }) => (isExpanded ? '8px 8px 0 0' : '8px')};
+  background-color: ${({ isExpanded, theme }) =>
+    isExpanded
+      ? theme.searchPalette.blackGray[90]
+      : theme.searchPalette.blackGray[70]};
+  border: 1px solid ${({ theme }) => theme.searchPalette.whiteGray[30]};
   padding: 0 14px;
   gap: 10px;
   font-size: 20px;
@@ -119,12 +114,11 @@ const InputContainer = styled.div<{ isExpanded: boolean }>`
 
   &:focus-within {
     outline: none;
-    border-color: ${searchPalette.whiteGray[50]};
-    background: ${({ isExpanded }) =>
-      isExpanded ? searchPalette.whiteGray[70] : '#000000'};
+    border-color: ${({ theme }) => theme.searchPalette.whiteGray[50]};
+    background: ${({ isExpanded, theme }) =>
+      isExpanded ? theme.searchPalette.whiteGray[70] : '#000000'};
   }
 
-  /* 애니메이션 효과 */
   transition: all 0.3s ease-in-out;
 `;
 
@@ -140,15 +134,17 @@ const StyledInput = styled.input<{ isExpanded: boolean }>`
   height: 100%;
   border: none;
   background: transparent;
-  color: ${({ isExpanded }) =>
-    isExpanded ? searchPalette.black : searchPalette.white};
+  color: ${({ isExpanded, theme }) =>
+    isExpanded ? theme.searchPalette.black : theme.searchPalette.white};
   font-size: 20px;
   position: relative;
   z-index: 2;
 
   &::placeholder {
-    color: ${({ isExpanded }) =>
-      isExpanded ? '#000' : searchPalette.whiteGray[50]};
+    color: ${({ isExpanded, theme }) =>
+      isExpanded
+        ? theme.searchPalette.black
+        : theme.searchPalette.whiteGray[50]};
   }
 
   &:focus {
@@ -162,8 +158,9 @@ const Overlay = styled.div<{ isExpanded: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${searchPalette.blackGray[90]};
+  background-color: ${({ theme }) => theme.searchPalette.blackGray[90]};
   z-index: 999;
-  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
-  transition: opacity 0.3s ease-in-out;
+  animation: ${({ isExpanded }) => (isExpanded ? fadeIn : fadeOut)} 0.3s
+    forwards;
+  pointer-events: ${({ isExpanded }) => (isExpanded ? 'auto' : 'none')};
 `;

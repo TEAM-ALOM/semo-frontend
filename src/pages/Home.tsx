@@ -6,12 +6,11 @@ import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import professorsData from '@semo-client/features/search/data/professors.json';
-import { Professor } from '@semo-client/features/search/models/Professor.ts';
+import { Professor } from '@semo-client/features/search/models/Professor';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
 import { getInitials } from '@semo-utils/search/hangulUtils';
-import { Controls } from '@storybook/blocks';
 
 /**
  * TODO 각 요소 컴포넌트 에는 추가 스타일(여백,마진) 들어있지 않은 순수 요소 컴포넌트
