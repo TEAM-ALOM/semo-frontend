@@ -13,6 +13,5 @@ export const searchPalette = {
     50: 'rgba(255, 255, 255, 0.5)',
     70: 'rgba(255, 255, 255, 0.7)',
   },
-};
-
-export default searchPalette;
+} as const;
+export type searchPalette = typeof searchPalette;
