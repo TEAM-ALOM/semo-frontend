@@ -9,8 +9,8 @@ function App() {
   return (
     <ReactOverlayProvider>
       <QueryProvider>
-        <RouterProvider router={routes} />
         <SemoThemeProvider>
+          <RouterProvider router={routes} />
           <SemoGlobalStyles />
         </SemoThemeProvider>
       </QueryProvider>

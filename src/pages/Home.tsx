@@ -5,8 +5,12 @@ import { BackgroundImageView } from '@semo-client/features/background-image/ui/c
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
-import professorsData from '@semo-client/features/search/data/professors.json';
-import { Professor } from '@semo-client/features/search/models/Professor';
+import totalData from '@semo-client/features/search/data/total.json';
+import {
+  Professor,
+  Site,
+  SearchResultTypes,
+} from '@semo-client/features/search/models/models';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
@@ -18,12 +22,12 @@ import { getInitials } from '@semo-utils/search/hangulUtils';
  */
 export const Home = () => {
   const [query, setQuery] = useState<string>('');
-  // 검색 결과 반영
-  const [results, setResults] = useState<Professor[]>([]);
+  // 검색 결과 반영 (교수 및 사이트 포함)
+  const [results, setResults] = useState<SearchResultTypes[]>([]);
 
   /**
-   * 검색어에 따라 교수님 데이터를 필터링합니다.
-   * 전체 이름, 초성, 일부 이름을 포함하는지 확인합니다.
+   * 검색어에 따라 교수 및 사이트 데이터를 필터링합니다.
+   * 전체 이름, 초성, 일부 이름 또는 사이트 이름 및 키워드를 포함하는지 확인합니다.
    * @param searchQuery 사용자 입력 검색어
    */
   const fetchData = (searchQuery: string) => {
@@ -35,17 +39,37 @@ export const Home = () => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
     const queryInitials = getInitials(normalizedQuery);
 
-    const filtered = professorsData.filter(professor => {
-      const name = professor.name.toLowerCase();
-      const initials = getInitials(professor.name.toLowerCase());
+    // 교수 검색
+    const filteredProfessors: Professor[] = totalData.professor.filter(
+      professor => {
+        const name = professor.name.toLowerCase();
+        const initials = getInitials(name);
+
+        return (
+          name.includes(normalizedQuery) || // 전체 이름 또는 일부 이름 포함
+          initials.includes(normalizedQuery) // 초성 포함
+        );
+      },
+    );
+
+    // 사이트 검색
+    const filteredSites: Site[] = totalData.sites.filter(site => {
+      const name = site.name.toLowerCase();
+      const keywords = site.keywords.map(keyword => keyword.toLowerCase());
 
       return (
-        name.includes(normalizedQuery) || // 전체 이름 또는 일부 이름 포함
-        initials.includes(normalizedQuery) // 초성 포함
+        name.includes(normalizedQuery) || // 사이트 이름 포함
+        keywords.some(keyword => keyword.includes(normalizedQuery)) // 키워드 포함
       );
     });
 
-    setResults(filtered);
+    // 결과 합치기
+    const combinedResults: SearchResult[] = [
+      ...filteredProfessors,
+      ...filteredSites,
+    ];
+
+    setResults(combinedResults);
   };
 
   const debouncedSearch = useCallback(
@@ -65,6 +89,7 @@ export const Home = () => {
     debouncedSearch.cancel();
     fetchData(query);
   };
+
   return (
     <AppContainer>
       <BackgroundImageView />

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Professor } from '@semo-client/features/search/models/Professor';
+import { SearchResultTypes } from '@semo-client/features/search/models/models';
 import { SearchResults } from '@semo-client/features/search/ui/components/SearchResults';
 import { useSearchOverlayController } from '@semo-client/features/search/ui/hooks/useSearchOverlayController';
 import SearchIcon from '@semo-client/ui/assets/icons/Icon';
@@ -10,7 +10,7 @@ interface SearchInputProps {
   setQuery: (query: string) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
-  results: Professor[];
+  results: SearchResultTypes[];
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({
