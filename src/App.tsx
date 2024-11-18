@@ -9,9 +9,9 @@ function App() {
   return (
     <ReactOverlayProvider>
       <QueryProvider>
-        <RouterProvider router={routes} />
         <SemoThemeProvider>
           <SemoGlobalStyles />
+          <RouterProvider router={routes} />
         </SemoThemeProvider>
       </QueryProvider>
     </ReactOverlayProvider>
