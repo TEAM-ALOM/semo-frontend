@@ -37,7 +37,7 @@ const FullScreenBackground = styled.div<{
   background-position: center;
   background-repeat: no-repeat;
 
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
