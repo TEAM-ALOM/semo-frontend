@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useScrollDetector } from '@semo-client/utils/react/hooks/useScrollDetector';
+import { useThrottledScrollDirection } from '@semo-client/utils/react/hooks/useThrottledScrollDirection';
 
 interface PageChangeHandlerHookProps {
   currentPageIndex: number;
@@ -17,24 +17,27 @@ export const usePageChangeHandler = ({
   const isLastPage = currentPageIndex === pageLength - 1;
   const isFirtPage = currentPageIndex === 0;
 
-  const pageChange = useScrollDetector(direction => {
-    if (direction === 'down' && !showGuideButton) {
-      setShowGuideButton(true);
-      return;
-    }
+  const changePageIndexByScrollDirection = useThrottledScrollDirection(
+    direction => {
+      if (direction === 'down' && !showGuideButton) {
+        setShowGuideButton(true);
+        return;
+      }
 
-    if (direction === 'down' && !isLastPage) {
-      changePageIndex(currentPageIndex + 1);
-      setShowGuideButton(false);
-      return;
-    }
+      if (direction === 'down' && !isLastPage) {
+        changePageIndex(currentPageIndex + 1);
+        setShowGuideButton(false);
+        return;
+      }
 
-    if (direction === 'up' && !isFirtPage) {
-      changePageIndex(currentPageIndex - 1);
-      setShowGuideButton(false);
-      return;
-    }
-  }, 1500);
+      if (direction === 'up' && !isFirtPage) {
+        changePageIndex(currentPageIndex - 1);
+        setShowGuideButton(false);
+        return;
+      }
+    },
+    1500,
+  );
 
   const goNextPage = () => {
     if (!isLastPage) {
@@ -44,7 +47,7 @@ export const usePageChangeHandler = ({
   };
 
   return {
-    pageChange,
+    changePageIndexByScrollDirection,
     goNextPage,
     showGuideButton,
   };

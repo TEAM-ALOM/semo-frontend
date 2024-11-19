@@ -18,14 +18,15 @@ export const SlidingLayout: React.FC<SlidingLayoutProps> = ({
   currentPageIndex,
   changePageIndex,
 }) => {
-  const { goNextPage, pageChange, showGuideButton } = usePageChangeHandler({
-    changePageIndex,
-    currentPageIndex,
-    pageLength: pages.length,
-  });
+  const { goNextPage, changePageIndexByScrollDirection, showGuideButton } =
+    usePageChangeHandler({
+      changePageIndex,
+      currentPageIndex,
+      pageLength: pages.length,
+    });
 
   return (
-    <SlidingLayoutContainer onWheel={pageChange}>
+    <SlidingLayoutContainer onWheel={changePageIndexByScrollDirection}>
       {pages.map((page, index) => (
         <Page key={index} topOffset={(index - currentPageIndex) * 100}>
           {page.component}

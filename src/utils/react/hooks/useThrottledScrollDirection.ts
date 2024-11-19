@@ -2,7 +2,9 @@ import { useCallback, useRef, WheelEvent, WheelEventHandler } from 'react';
 
 type ScrollHandlerCallback = (direction: 'up' | 'down') => void;
 
-export const useScrollDetector = <T extends HTMLElement = HTMLElement>(
+export const useThrottledScrollDirection = <
+  T extends HTMLElement = HTMLElement,
+>(
   callback: ScrollHandlerCallback,
   delay: number = 500,
 ): WheelEventHandler<T> => {
