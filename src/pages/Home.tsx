@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
@@ -5,6 +6,8 @@ import { HeaderView } from '@semo-client/features/header/ui/components/HeaderVie
 import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
+import { ScrollGuideButton } from '@semo-client/features/sliding-layout/ui/components/ScrollGuideButton';
+import { SlidingLayout } from '@semo-client/features/sliding-layout/ui/components/SildingLayout';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
 
 /**
@@ -14,40 +17,58 @@ import { LoginButtonView } from '@semo-client/features/users/ui/components/Login
 export const Home = () => {
   // load user login status
 
+  // temp siliding page state
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+
   return (
     <AppContainer>
-      <BackgroundImageView />
-      <HeaderView
-        userProfileView={
-          // view setting by user login status
-          // <UserProfileView />
-          <LoginButtonView />
-        }
+      <SlidingLayout
+        pages={[
+          {
+            component: (
+              <>
+                <BackgroundImageView />
+                <HeaderView
+                  userProfileView={
+                    // view setting by user login status
+                    // <UserProfileView />
+                    <LoginButtonView />
+                  }
+                />
+
+                <Clock />
+
+                {/* Search */}
+                <SearchInputContainer>
+                  <SearchInput />
+                  <TrendingKeywords />
+                </SearchInputContainer>
+
+                {/* <Notice /> */}
+                <NoticeView />
+
+                {/* <Bookmark /> */}
+                <BookmarkContainer>
+                  <BookmarkCard />
+                  <BookmarkCard />
+                  <BookmarkCard />
+                  <BookmarkCard />
+                  <BookmarkCard />
+                  <BookmarkCard />
+                </BookmarkContainer>
+              </>
+            ),
+            renderGuideButton: goNextPage => (
+              <ScrollGuideButton onClick={goNextPage} />
+            ),
+          },
+          {
+            component: <div>Second Page</div>,
+          },
+        ]}
+        changePageIndex={i => setCurrentPageIndex(i)}
+        currentPageIndex={currentPageIndex}
       />
-
-      <Clock />
-
-      {/* Search */}
-      <SearchInputContainer>
-        <SearchInput />
-        <TrendingKeywords />
-      </SearchInputContainer>
-
-      {/* <Notice /> */}
-      <NoticeView />
-
-      {/* <Bookmark /> */}
-      <BookmarkContainer>
-        <BookmarkCard />
-        <BookmarkCard />
-        <BookmarkCard />
-        <BookmarkCard />
-        <BookmarkCard />
-        <BookmarkCard />
-      </BookmarkContainer>
-
-      {/* 여기까지 스크롤 전  */}
-      {/* <ProjectCuration /> */}
     </AppContainer>
   );
 };
