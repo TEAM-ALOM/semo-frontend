@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ImportantNoticeView } from '@semo-client/features/academic/important-notice/ui/components/ImportantNoticeView';
 import { AcademicNoticeView } from '@semo-client/features/academic/notice-detail-list/ui/components/AcademicNoticeView';
 import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
+import { BookmarkListView } from '@semo-client/features/bookmark/ui/components/BookmarkListView';
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
@@ -11,10 +12,6 @@ import { ScrollGuideButton } from '@semo-client/features/sliding-layout/ui/compo
 import { SlidingLayout } from '@semo-client/features/sliding-layout/ui/components/SildingLayout';
 import { LoginButtonView } from '@semo-client/features/users/ui/components/LoginButtonView';
 
-/**
- * TODO 각 요소 컴포넌트 에는 추가 스타일(여백,마진) 들어있지 않은 순수 요소 컴포넌트
- * 각 요소의 마진 요소들은 (레이아웃 잡기) 여기서 container 컴포넌트에서 잡아준다.
- */
 export const Home = () => {
   // load user login status
 
@@ -39,24 +36,14 @@ export const Home = () => {
 
                 <Clock />
 
-                {/* Search */}
                 <SearchInputContainer>
                   <SearchInput />
                   <TrendingKeywords />
                 </SearchInputContainer>
 
-                {/* <Notice /> */}
                 <ImportantNoticeView />
 
-                {/* <Bookmark /> */}
-                <BookmarkContainer>
-                  <BookmarkCard />
-                  <BookmarkCard />
-                  <BookmarkCard />
-                  <BookmarkCard />
-                  <BookmarkCard />
-                  <BookmarkCard />
-                </BookmarkContainer>
+                <BookmarkListView />
               </>
             ),
             renderGuideButton: goNextPage => (
@@ -88,34 +75,6 @@ const SecondPageWrapper = styled.section`
 
   display: flex;
   gap: 80px;
-`;
-
-// bookmark
-
-const BookmarkContainer = styled.div`
-  display: flex;
-  width: fit-content;
-  margin: 48px auto 0;
-  gap: 18px;
-`;
-
-const BookmarkCard = () => {
-  return (
-    <BookmarkCardContainer>
-      {/* <BookmarkCardImage /> */}
-      {/* <BookmarkCardTitle> */}
-      {/* title */}
-      {/* </BookmarkCardTitle> */}
-    </BookmarkCardContainer>
-  );
-};
-
-const BookmarkCardContainer = styled.div`
-  width: 80px;
-  height: 64px;
-  border-radius: 8px;
-  background-color: #b93234;
-  color: #000;
 `;
 
 const SearchInputContainer = styled.div`
