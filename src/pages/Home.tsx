@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ImportantNoticeView } from '@semo-client/features/academic/important-notice/ui/components/ImportantNoticeView';
+import { AcademicNoticeView } from '@semo-client/features/academic/notice-detail-list/ui/components/AcademicNoticeView';
 import { BackgroundImageView } from '@semo-client/features/background-image/ui/components/BackgroundImageView';
 import { Clock } from '@semo-client/features/clock/ui/components/Clock';
 import { HeaderView } from '@semo-client/features/header/ui/components/HeaderView';
-import { NoticeView } from '@semo-client/features/notice/ui/components/NoticeView';
 import { SearchInput } from '@semo-client/features/search/ui/components/SearchInput';
 import { TrendingKeywords } from '@semo-client/features/search/ui/components/TrendingKeywords';
 import { ScrollGuideButton } from '@semo-client/features/sliding-layout/ui/components/ScrollGuideButton';
@@ -45,7 +46,7 @@ export const Home = () => {
                 </SearchInputContainer>
 
                 {/* <Notice /> */}
-                <NoticeView />
+                <ImportantNoticeView />
 
                 {/* <Bookmark /> */}
                 <BookmarkContainer>
@@ -63,7 +64,12 @@ export const Home = () => {
             ),
           },
           {
-            component: <div>Second Page</div>,
+            component: (
+              <SecondPageWrapper>
+                <AcademicNoticeView />
+                <AcademicNoticeView />
+              </SecondPageWrapper>
+            ),
           },
         ]}
         changePageIndex={i => setCurrentPageIndex(i)}
@@ -72,6 +78,17 @@ export const Home = () => {
     </AppContainer>
   );
 };
+
+// .... naming
+const SecondPageWrapper = styled.section`
+  background-color: #1c1c1e;
+  padding: 80px;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  gap: 80px;
+`;
 
 // bookmark
 

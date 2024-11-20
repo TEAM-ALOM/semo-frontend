@@ -19,7 +19,7 @@ export const usePageChangeHandler = ({
 
   const changePageIndexByScrollDirection = useThrottledScrollDirection(
     direction => {
-      if (direction === 'down' && !showGuideButton) {
+      if (direction === 'down' && !showGuideButton && !isLastPage) {
         setShowGuideButton(true);
         return;
       }

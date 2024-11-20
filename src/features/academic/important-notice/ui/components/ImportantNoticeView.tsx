@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NoticeView = () => {
+export const ImportantNoticeView = () => {
   return (
     <NoticeContainer>
       <div>
