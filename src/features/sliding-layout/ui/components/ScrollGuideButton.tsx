@@ -12,7 +12,7 @@ export const ScrollGuideButton = ({ onClick }: { onClick: () => void }) => {
 };
 
 const StyledGuideButton = styled.button`
-  animation: ${fadeIn} 0.4s;
+  animation: ${fadeIn} 0.3s;
   position: fixed;
   bottom: 20px;
   left: 50%;

@@ -6,29 +6,38 @@ export const useThrottledScrollDirection = <
   T extends HTMLElement = HTMLElement,
 >(
   callback: ScrollHandlerCallback,
-  delay: number = 500,
+  threshold: number = 200,
+  cooldown: number = 500,
 ): WheelEventHandler<T> => {
-  const lockRef = useRef(false);
+  const accumulatedDelta = useRef(0);
+  const lastDirection = useRef<'up' | 'down' | null>(null);
+  const cooldownActive = useRef(false);
 
   const handleScroll = (event: WheelEvent<T>) => {
-    if (lockRef.current) return;
-
-    // lock
-    lockRef.current = true;
-
-    setTimeout(() => {
-      lockRef.current = false; // 딜레이 후 잠금 해제
-    }, delay);
-
     const { deltaY } = event;
 
-    if (deltaY > 0) {
-      callback('down');
-      return;
-    } else if (deltaY < 0) {
-      callback('up');
+    if (cooldownActive.current) return;
+
+    const currentDirection = deltaY > 0 ? 'down' : 'up';
+
+    if (lastDirection.current && currentDirection !== lastDirection.current) {
+      accumulatedDelta.current = 0;
+    }
+
+    lastDirection.current = currentDirection;
+    accumulatedDelta.current += deltaY;
+
+    // 임계값을 초과하면 콜백 실행 및 쿨다운 활성화
+    if (Math.abs(accumulatedDelta.current) >= threshold) {
+      callback(currentDirection);
+      accumulatedDelta.current = 0;
+
+      cooldownActive.current = true;
+      setTimeout(() => {
+        cooldownActive.current = false;
+      }, cooldown);
     }
   };
 
-  return useCallback(handleScroll, [callback, delay]);
+  return useCallback(handleScroll, [callback, threshold, cooldown]);
 };

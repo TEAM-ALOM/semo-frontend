@@ -36,7 +36,6 @@ export const usePageChangeHandler = ({
         return;
       }
     },
-    1500,
   );
 
   const goNextPage = () => {
