@@ -10,6 +10,7 @@ function App() {
     <ReactOverlayProvider>
       <QueryProvider>
         <SemoThemeProvider>
+          <RouterProvider router={routes} />
           <SemoGlobalStyles />
           <RouterProvider router={routes} />
         </SemoThemeProvider>

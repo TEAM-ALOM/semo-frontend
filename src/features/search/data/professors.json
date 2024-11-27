@@ -1,0 +1,65 @@
+[
+  {
+    "name": "권순일",
+    "labLocation": "대양AI 624호",
+    "phoneNumber": "02-3408-3847",
+    "email": "sikwon@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "백성욱",
+    "labLocation": "대양AI 622호",
+    "phoneNumber": "02-3408-3797",
+    "email": "sbaik@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "이종원",
+    "labLocation": "대양AI 619호",
+    "phoneNumber": "02-3408-3798",
+    "email": "jwlee@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "송오영",
+    "labLocation": "대양AI 625호",
+    "phoneNumber": "02-3408-3830",
+    "email": "oysong@sejong.edu",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "최준연",
+    "labLocation": "대양AI 620호",
+    "phoneNumber": "02-3408-3887",
+    "email": "zoon@sejong.edu",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "박상일",
+    "labLocation": "대양AI 626호",
+    "phoneNumber": "02-3408-3832",
+    "email": "sipark@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "변재욱",
+    "labLocation": "대양AI 604호",
+    "phoneNumber": "02-3408-1847",
+    "email": "jwbyun@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "이은상",
+    "labLocation": "대양AI 621호",
+    "phoneNumber": "02-3408-2975",
+    "email": "eslee3209@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  },
+  {
+    "name": "정승화",
+    "labLocation": "대양AI 623호",
+    "phoneNumber": "02-3408-3795",
+    "email": "seunghwajeong@sejong.ac.kr",
+    "department": "소프트웨어학과"
+  }
+]
